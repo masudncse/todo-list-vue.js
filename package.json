@@ -8,9 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.19.0",
     "core-js": "^2.6.5",
-    "vform": "^1.0.1",
+    "vee-validate": "^2.1.7",
     "vue": "^2.6.10"
   },
   "devDependencies": {

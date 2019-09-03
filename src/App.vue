@@ -2,11 +2,19 @@
   <div id="app">
     <div class="main">
       <h1>TO-DO LIST</h1>
-      <form @submit.prevent="addTodoItem()" method="post">
-        <input type="text" ref="newTodoItem" v-model="newTodoItem" placeholder="new task" autofocus />
+      <form @submit.prevent="addTodoItem()" novalidate>
+        <input 
+        type="text" 
+        ref="newTodoItem" 
+        name="newTodoItem" 
+        v-model="newTodoItem"
+        v-validate="'required|alpha'"
+        placeholder="new task" 
+        autofocus  />
         <button type="submit">
           <strong>ADD</strong>
         </button>
+        <span v-show="errors.has('newTodoItem')" class="help-block text-danger">{{ errors.first('newTodoItem') }}</span>
       </form>
       <div class="tasksBoard">
         <ul>
@@ -49,20 +57,20 @@ export default {
   },
   methods: {
     addTodoItem() {
-      if (this.newTodoItem === "" || this.newTodoItem === null) {
-        alert("The field is required.");
-        return;
-      }
-
-      let count = this.todos.length;
-      let todo = {
-        id: (count += 1),
-        text: this.newTodoItem,
-        status: false
-      };
-      this.todos.push(todo);
-      this.newTodoItem = "";
-      this.$refs.newTodoItem.focus();
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          let count = this.todos.length;
+          let todo = {
+            id: (count += 1),
+            text: this.newTodoItem,
+            status: false
+          };
+          this.todos.push(todo);
+          this.newTodoItem = "";
+          this.$refs.newTodoItem.focus();
+          return;
+        }
+      });
     },
     removeTodoItem(id) {
       let todos = this.todos.filter(item => {
