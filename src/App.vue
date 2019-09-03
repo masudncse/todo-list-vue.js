@@ -3,7 +3,7 @@
     <div class="main">
       <h1>TO-DO LIST</h1>
       <form @submit.prevent="addTodoItem()" method="post">
-        <input type="text" ref="newTodoItem" v-model="newTodoItem" placeholder="new task" autofocus="" />
+        <input type="text" ref="newTodoItem" v-model="newTodoItem" placeholder="new task" autofocus />
         <button type="submit">
           <strong>ADD</strong>
         </button>
@@ -21,12 +21,23 @@
         <a id="clear" @click="clearTodoItems($event)">Clear</a>
       </div>
     </div>
+
+    <HelloWorld msg="Props" />
   </div>
 </template>
 
 <script>
+import HelloWorld from "./components/HelloWorld.vue";
+
+// import Vue from "vue";
+// Vue.component("HelloWorld", require("./components/HelloWorld.vue").default);
+
 export default {
-  name:'app',
+  name: "app",
+  components: {
+    HelloWorld
+  },
+  props: {},
   data: function() {
     return {
       todos: [
@@ -38,6 +49,11 @@ export default {
   },
   methods: {
     addTodoItem() {
+      if (this.newTodoItem === "" || this.newTodoItem === null) {
+        alert("The field is required.");
+        return;
+      }
+
       let count = this.todos.length;
       let todo = {
         id: (count += 1),
@@ -45,8 +61,8 @@ export default {
         status: false
       };
       this.todos.push(todo);
-      this.newTodoItem = "";  
-      this.$refs.newTodoItem.focus();  
+      this.newTodoItem = "";
+      this.$refs.newTodoItem.focus();
     },
     removeTodoItem(id) {
       let todos = this.todos.filter(item => {
@@ -71,3 +87,7 @@ export default {
   }
 };
 </script>
+
+<style>
+/* @import "assets/css/style.css"; */
+</style>
