@@ -14,7 +14,7 @@
         <button type="submit">
           <strong>ADD</strong>
         </button>
-        <span v-show="errors.has('newTodoItem')" class="help-block text-danger">{{ errors.first('newTodoItem') }}</span>
+        <span v-show="errors.has('newTodoItem')" style="color: red;">{{ errors.first('newTodoItem') }}</span>
       </form>
       <div class="tasksBoard">
         <ul>
@@ -29,23 +29,13 @@
         <a id="clear" @click="clearTodoItems($event)">Clear</a>
       </div>
     </div>
-
-    <HelloWorld msg="Props" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-// import Vue from "vue";
-// Vue.component("HelloWorld", require("./components/HelloWorld.vue").default);
 
 export default {
   name: "app",
-  components: {
-    HelloWorld
-  },
-  props: {},
   data: function() {
     return {
       todos: [
@@ -57,7 +47,7 @@ export default {
   },
   methods: {
     addTodoItem() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then((result) => {        
         if (result) {
           let count = this.todos.length;
           let todo = {
@@ -95,7 +85,3 @@ export default {
   }
 };
 </script>
-
-<style>
-/* @import "assets/css/style.css"; */
-</style>
