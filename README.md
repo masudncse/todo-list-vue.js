@@ -1,6 +1,6 @@
 ## Vue.JS Todo List
 
-This is a application on todo list.
+This is a todo list application.
 
 ## Screenshot
 
